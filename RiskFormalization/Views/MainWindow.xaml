@@ -1,0 +1,103 @@
+﻿<Window x:Class="RiskFormalization.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:RiskFormalization.ViewModels"
+        xmlns:views="clr-namespace:RiskFormalization.Views"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="Formalized Risk" Height="600" Width="800" d:DataContext="{d:DesignData }">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TabItemStyle"
+                   TargetType="{x:Type TabItem}">
+                <Setter Property="Header"
+                        Value="{Binding Path=Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Ribbon Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+            <RibbonTab Header="Home">
+                <RibbonGroup Header="Ідентифікація ризиків">
+                    <RibbonButton Label="Визначення можливих джерел появи ризиків"
+                                  Command="{Binding Path=RiskIdentifyCommand}"
+                                  LargeImageSource="../ImageResources/risk_source.png" />
+                    <RibbonButton Label="Ідентифікація потенційних ризикових подій"
+                                  Command="{Binding Path=RiskEventIdentifyCommand}"
+                                  LargeImageSource="../ImageResources/identify.png" />
+                </RibbonGroup>
+                <RibbonGroup Header="Аналіз ризиків">
+                    <RibbonButton Label="Визначення ймовірностей"
+                                  Command="{Binding Path=Analyze1Command}"
+                                  LargeImageSource="../ImageResources/analyze.png" />
+                    <RibbonButton Label="Визначення збитків"
+                                  Command="{Binding Path=CostValueCommand}"
+                                  LargeImageSource="../ImageResources/money.png" />
+                </RibbonGroup>
+                <RibbonGroup Header="Планування ризиків">
+                    <RibbonButton Label="Планування ризиків"
+                                  Command="{Binding Path=OpenPlanningCommand}"
+                                  LargeImageSource="../ImageResources/planning.png" />
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="5">
+            <TabControl ItemsSource="{Binding Path=ItemBaseViewModels, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TabStripPlacement="Bottom"
+                        SelectedItem="{Binding Path=SelectedBaseViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemContainerStyle="{StaticResource TabItemStyle}">
+                <TabControl.Resources>
+                    <ResourceDictionary>
+                        <DataTemplate DataType="{x:Type viewModels:RiskIdentifyViewModel}">
+                            <views:RiskIdentifyView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:RiskEventIdentifyViewModel}">
+                            <views:RiskEventIdentifyView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:Analyze1ViewModel}">
+                            <views:Analyze1View />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:Analyze2ViewModel}">
+                            <views:Analyze2View />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:PlanningViewModel}">
+                            <views:PlanningView />
+                        </DataTemplate>
+
+                    </ResourceDictionary>
+                </TabControl.Resources>
+            </TabControl>
+        </Grid>
+
+        <!--<Grid Grid.Row="1"
+              Grid.Column="1"
+              Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Content="Pattern image"
+                   HorizontalContentAlignment="Center"
+                   Grid.Row="0"/>
+            <Image x:Name="PatternImage" 
+                   Grid.Row="1">
+            </Image>
+        </Grid>-->
+        
+    </Grid>
+</Window>

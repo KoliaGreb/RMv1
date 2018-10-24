@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="RiskFormalization.Views.Analyze1View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RiskFormalization.Views"
+             xmlns:models="clr-namespace:RiskFormalization.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ScrollViewer>    
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>-->
+           
+            <DataGrid AutoGenerateColumns="True"
+                      Grid.Column="0"
+                      Margin="10"
+                      AutoGeneratingColumn="OnAutoGeneratingColumn"
+                      ItemsSource="{Binding Path=ExpertCoeffList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Grid.Column="1"
+                        Width="200"
+                        Height="50"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Content="Визначити ймовірності"
+                        Command="{Binding Path=AnalyzeOpenResultCommand}" />
+                <!--<DataGrid AutoGenerateColumns="True"
+                          Grid.Column="0"
+                          Grid.Row="1"
+                          Margin="10"
+                          AutoGeneratingColumn="OnAutoGeneratingColumn1"
+                          ItemsSource="{Binding Path=ExpertCoeffListForCost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        Width="200"
+                        Height="50"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Content="Визначити збитки"
+                        Command="{Binding Path=AnalyzeOpenCostResultCommand}" />-->
+            </Grid>
+            <DataGrid x:Name="RandomExpertMarks"
+                      AutoGenerateColumns="True"
+                      Margin="10"
+                      AutoGeneratingColumn="OnAutoGeneratingColumn"
+                      ItemsSource="{Binding Path=ExpertMarksList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsMainRow}"
+                                         Value="True">
+                                <Setter Property="Background" Value="Chartreuse"></Setter>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.Resources>
+                </DataGrid>
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

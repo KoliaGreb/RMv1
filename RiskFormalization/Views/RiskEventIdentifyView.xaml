@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="RiskFormalization.Views.RiskEventIdentifyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:models="clr-namespace:RiskFormalization.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0">
+            <StackPanel>
+                <!--1-->
+                <Label Content="Множина настання технічних ризикових подій:"/>
+                <ItemsControl ItemsSource="{Binding Path=List1}" 
+                      BorderThickness="3"
+                      BorderBrush="Black">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:CheckBoxCustomItem}">
+                            <CheckBox Content="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="3"
+                              IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--2-->
+                <Label Content="Множина настання вартісних ризикових подій:"/>
+                <ItemsControl ItemsSource="{Binding Path=List2}" 
+                      BorderThickness="3"
+                      BorderBrush="Black">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:CheckBoxCustomItem}">
+                            <CheckBox Content="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="3"
+                              IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--3-->
+                <Label Content="Множина настання планових ризикових подій:"/>
+                <ItemsControl ItemsSource="{Binding Path=List3}" 
+                      BorderThickness="3"
+                      BorderBrush="Black">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:CheckBoxCustomItem}">
+                            <CheckBox Content="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="3"
+                              IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--4-->
+                <Label Content="Множина настання ризикових подій реалізації процесу управління програмним проектом:"/>
+                <ItemsControl ItemsSource="{Binding Path=List4}" 
+                      BorderThickness="3"
+                      BorderBrush="Black">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:CheckBoxCustomItem}">
+                            <CheckBox Content="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="3"
+                              IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Column="1">
+            <Button Width="250" 
+                    VerticalAlignment="Center" 
+                    Command="{Binding Path=FindProbabilityCommand}" 
+                    Content="Розрахувати ймовірність появи"/>
+            <TextBlock Width="300" TextWrapping="WrapWithOverflow" Text="{Binding Path=ResultProbability, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Azure"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
+
